@@ -6,6 +6,7 @@
 var express = require('express');
 
 var app = module.exports = express.createServer();
+var io = require('socket.io').listen(app);
 
 // Configuration
 
@@ -30,9 +31,29 @@ app.configure('production', function(){
 
 app.get('/', function(req, res){
   res.render('index', {
-    title: 'Express'
+    title: "JSChat",
+    startedAt: new Date()
   });
 });
+
+// Socket events
+
+var sockets = [];
+
+io.sockets.on('connection', function (socket) {
+  sockets.push(socket);
+  socket.on('create_message', function (data) {
+    messageCreated(data);
+  });
+});
+
+
+function messageCreated(data) {
+  for(i in sockets) {
+    sockets[i].emit('message_created', { body: data.body });
+  }
+}
+
 
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);

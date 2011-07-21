@@ -1,2 +1,12 @@
-h1= title
-p Welcome to #{title}
+h1 Chat with me
+p Chat started at #{startedAt}
+
+ul(id="message_list")
+
+
+form(id="new_message")
+  input(type="text", name="body")
+  input(type="submit")
+
+
+script(src="/javascripts/index.js")
