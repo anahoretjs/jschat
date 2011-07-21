@@ -1,4 +1,4 @@
-var socket = io.connect('http://aratak');
+var socket = io.connect('localhost');
 
 socket.on('message_created', function (data) {
   console.log(data);
