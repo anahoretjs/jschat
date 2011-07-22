@@ -1,19 +1,24 @@
-exports.init = function(app) {
-  var io = require('socket.io').listen(app),
-      async = require('async');
+var socketIo = require('socket.io'),
+    async = require('async');
 
-  var sockets = [];
+var sockets = [];
 
-  io.sockets.on('connection', function (socket) {
-    sockets.push(socket);
-    socket.on('create_message', onMessageCreated);
+function onMessageCreated(data) {
+  async.forEach(sockets, function (socket) {
+    socket.emit('message_created', { body: data.body });
   });
+}
 
-  function onMessageCreated(data) {
-    async.forEach(sockets, function (socket) {
-      socket.emit('message_created', { body: data.body });
-    });
-  }
+function onConnection(socket) {
+  sockets.push(socket);
+  socket.on('create_message', onMessageCreated);
+}
 
+
+exports.init = function(app) {
+  var io = socketIo.listen(app);
+  io.sockets.on('connection', function(socket) {
+    onConnection(socket);
+  });
 }
 
