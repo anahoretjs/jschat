@@ -4,10 +4,7 @@
  */
 
 var express = require('express');
-
-var app = module.exports = express.createServer(),
-    io = require('socket.io').listen(app),
-    async = require('async');
+var app = module.exports = express.createServer();
 
 // Configuration
 
@@ -21,36 +18,15 @@ app.configure(function(){
 });
 
 app.configure('development', function(){
-  app.use(express.errorHandler({ dumpExceptions: true, showStack: true })); 
+  app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
 });
 
 app.configure('production', function(){
-  app.use(express.errorHandler()); 
+  app.use(express.errorHandler());
 });
 
-// Routes
-
-app.get('/', function(req, res){
-  res.render('index', {
-    title: "JSChat",
-    startedAt: new Date()
-  });
-});
-
-// Socket events
-
-var sockets = [];
-
-io.sockets.on('connection', function (socket) {
-  sockets.push(socket);
-  socket.on('create_message', onMessageCreated);
-});
-
-function onMessageCreated(data) {
-  async.forEach(sockets, function (socket) {
-    socket.emit('message_created', { body: data.body });
-  });
-}
+require('./actions').act(app); // Routes and Actions
+require('./chat').init(app);   // Chat stuff
 
 app.listen(3000);
 console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
