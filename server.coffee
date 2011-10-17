@@ -1,5 +1,7 @@
-http = require 'http'
-http.createServer (req, res)->
-  res.writeHead 200, { 'Content-Type': 'text/plain' }
-  res.end 'Hello World\n'
-.listen 3000, "127.0.0.1"
+bee = require 'beeline'
+
+router = bee.route
+  "r`^/client/(.*)$`": bee.staticDir('./client', { '.txt': 'text/plain', '.js': 'text/javascript' })
+  "/robots.txt": bee.staticFile("./public/robots.txt", "text/plain")
+
+require("http").createServer(router).listen(8001)
