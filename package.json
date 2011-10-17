@@ -1,0 +1,11 @@
+{
+  "name": "jschat",
+  "description": "chat with websockets and nodejs",
+  "version": "0.0.1",
+  "author": "Alexey Osipenko <alexey@osipenko.in.ua>",
+  "main": "./server.coffee",
+  "engines": { 
+    "node": ">= 0.4.12",
+    "coffee": ">= 1.1.2"
+  }
+}
