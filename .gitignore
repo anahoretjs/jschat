@@ -1,0 +1,17 @@
+pkg
+Icon?
+.bundle
+.DS_Store
+TAGS
+REVISION
+*.tmproj
+*~
+.settings
+.project
+.tasks-cache
+.svn
+*DONOTVERSION*
+/coverage
+/nbproject
+/.idea
+.sass-cache/
