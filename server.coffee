@@ -1,3 +1,3 @@
-router = require('./lib/routes').router
+App = require("./lib/app").appClass(__dirname)
 
-require("http").createServer(router).listen(3000)
+new App

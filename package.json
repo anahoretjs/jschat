@@ -5,6 +5,8 @@
   "author": "Alexey Osipenko <alexey@osipenko.in.ua>",
   "dependencies": {
     "http": "",
-    "beeline": ""
+    "connect": "",
+    "socket.io": "",
+    "underscore": ""
   }
 }
