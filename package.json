@@ -5,8 +5,8 @@
   "author": "Alexey Osipenko <alexey@osipenko.in.ua>",
   "dependencies": {
     "http": "",
-    "connect": "",
-    "socket.io": "",
-    "underscore": ""
+    "connect": "1.7.1",
+    "socket.io": "0.8.5",
+    "underscore": "1.2.0"
   }
 }
