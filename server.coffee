@@ -1,3 +1,4 @@
-App = require("./lib/app").appClass(__dirname)
+App = require("./lib/app").appClass
 
-new App
+app = new App __dirname
+app.run()
